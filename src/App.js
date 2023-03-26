@@ -5,26 +5,16 @@ import { useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 
 export default function App() {
-  const [width, setWidth] = useState(50);
   const [isInside, setIsInside] = useState(false);
   const [docName, setDocName] = useState("Untitled.md");
 
-  const handleChangeWidth = () => {
-    if (width === 50) {
-      setWidth(25);
-    } else {
-      setWidth(50);
-    }
-  };
-
   const defaultState = `
 # Life isn't that complicated 
-## Unless you want it to be 
+### Unless you want it to be 
 Which in that case, [try this](https://www.google.com/search?q=what%27s+wrong+with+me)
 
 Sometimes in life you have to be **bold**
 Or a bit *unique*
-and thats okay.
 \`\<p>Most important thing is to keep learning</p>\`\
 
 \`\`\`\`
@@ -35,44 +25,42 @@ const learning = (information) => {
 }
 \`\`\`\`
 
-> Block Quotes!
-1. Numbered List
-* Bulleted List
+Organise your thoughts with a list:
+1. Numbered
+* Bulleted
+
+And maybe one day you'll end up in a block quote:
+> Visualise it into fruition
 
 
 Made possible by React ![React Logo](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)
+
+###### p.s I forgot I didn't use React on this but the logo's colour fit quite nice so I'll just leave that there.
 `;
 
   const [text, setText] = useState(defaultState.trim());
 
   return (
-    <div className="App container-fluid d-flex justify-content-center align-items-center flex-column">
+    <div id="appContainer">
       <div className="header">
-        <div style={{fontSize: '12px'}}>DOCUMENT NAME</div>
-        <input type='text' value={docName} onChange={(e) => setDocName(e.target.value)} />
+        <div style={{ fontSize: "12px" }}>DOCUMENT NAME</div>
+        <input
+          type="text"
+          value={docName}
+          onChange={(e) => setDocName(e.target.value)}
+        />
       </div>
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ width: "95%", height: "38em" }}
-      >
-        <div
-          onClick={handleChangeWidth}
-          style={{
-            backgroundColor: "pink",
-            width: "1em",
-            height: "100%",
-            borderRadius: "2px",
-          }}
-        ></div>
-        <div
-          style={{ borderRadius: "3px" }}
-          className={`w-${width} h-100 mx-2 overflow-auto position-relative position-relative`}
-        >
+      <div id="decor"></div>
+
+      <div id="container">
+        <div id="preview" style={{ backgroundColor: "#212121" }}>
+          <Markdown breaks={true}>{text}</Markdown>
+        </div>
+        <div id="editorContainer" style={{ borderRadius: "3px" }}>
           <textarea
             id="editor"
             value={text}
             style={{ fontSize: "14px" }}
-            className={`w-100 h-100 mx-2 p-3 overflow-auto position-relative`}
             onChange={(e) => setText(e.target.value)}
             onMouseOver={() => setIsInside(true)}
             onMouseLeave={() => setIsInside(false)}
@@ -85,13 +73,6 @@ Made possible by React ![React Logo](https://upload.wikimedia.org/wikipedia/comm
               style={{ color: "grey", display: "block" }}
             />
           )}
-        </div>
-        <div
-          id="preview"
-          className="h-100 w-50 mx-2 p-3 text-white overflow-auto"
-          style={{ backgroundColor: "#212121" }}
-        >
-          <Markdown breaks={true}>{text}</Markdown>
         </div>
       </div>
     </div>
