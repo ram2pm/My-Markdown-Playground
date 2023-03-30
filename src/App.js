@@ -34,8 +34,6 @@ And maybe one day you'll end up in a block quote:
 
 
 Made possible by React ![React Logo](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)
-
-###### p.s I forgot I didn't use React on this but the logo's colour fit quite nice so I'll just leave that there.
 `;
 
   const [text, setText] = useState(defaultState.trim());
